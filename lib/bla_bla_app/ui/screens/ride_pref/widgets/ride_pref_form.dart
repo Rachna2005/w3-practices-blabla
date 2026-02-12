@@ -5,6 +5,7 @@ import '../../../../model/ride/locations.dart';
 import '../../../../model/ride_pref/ride_pref.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/actions/bla_button.dart';
+import '../../location_picker/location_screen.dart';
 
 ///
 /// A Ride Preference From is a view to select:
@@ -104,6 +105,32 @@ class _RidePrefFormState extends State<RidePrefForm> {
   // Handle events
   // ----------------------------------
 
+  void selectDeparture() async {
+    final selected = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) =>  LocationScreen()),
+    );
+
+    if (selected != null && selected is Location) {
+      setState(() {
+        departure = selected;
+      });
+    }
+  }
+
+  void selectArrival() async {
+    final selected = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => LocationScreen()),
+    );
+
+    if (selected != null && selected is Location) {
+      setState(() {
+        arrival = selected;
+      });
+    }
+  }
+
   // ----------------------------------
   // Compute the widgets rendering
   // ----------------------------------
@@ -120,7 +147,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
         _buildFormRow(
           icon: Icons.location_on_outlined,
           text: departure?.name ?? 'Select Departure',
-          onTap: () {},
+          onTap: selectDeparture,
           showTrailing: true,
           trailingIcon: Icons.swap_vert,
         ),
@@ -128,7 +155,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
         _buildFormRow(
           icon: Icons.location_on_outlined,
           text: arrival?.name ?? 'Select Arrival',
-          onTap: () {},
+          onTap: selectArrival,
         ),
 
         _buildFormRow(
