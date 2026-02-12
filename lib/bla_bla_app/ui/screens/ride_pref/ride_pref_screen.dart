@@ -57,30 +57,34 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
             color: Colors.white, // White background
             borderRadius: BorderRadius.circular(16), // Rounded corners
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // 2.1 Display the Form to input the ride preferences
-              RidePrefForm(initRidePref: RidePrefService.currentRidePref),
-              SizedBox(height: BlaSpacings.m),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: BlaSpacings.l),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // 2.1 Display the Form to input the ride preferences
+                // RidePrefForm(initRidePref: RidePrefService.currentRidePref),
+                RidePrefForm(initRidePref: RidePrefService.ridePrefsHistory[0]),
+                SizedBox(height: BlaSpacings.m),
 
-              // 2.2 Optionally display the history of past preferences
-              SizedBox(
-                height: 200, // Set a fixed height
-                child: ListView.builder(
-                  shrinkWrap: true, // Fix ListView height issue
-                  physics: AlwaysScrollableScrollPhysics(),
-                  itemCount: RidePrefService.ridePrefsHistory.length,
-                  itemBuilder: (ctx, index) => RidePrefHistoryTile(
-                    onTap: () => onRidePrefSelected(
-                      RidePrefService.ridePrefsHistory[index],
+                // 2.2 Optionally display the history of past preferences
+                SizedBox(
+                  height: 200, // Set a fixed height
+                  child: ListView.builder(
+                    shrinkWrap: true, // Fix ListView height issue
+                    physics: AlwaysScrollableScrollPhysics(),
+                    itemCount: RidePrefService.ridePrefsHistory.length,
+                    itemBuilder: (ctx, index) => RidePrefHistoryTile(
+                      onTap: () => onRidePrefSelected(
+                        RidePrefService.ridePrefsHistory[index],
+                      ),
+                      ridePref: RidePrefService.ridePrefsHistory[index],
                     ),
-                    ridePref: RidePrefService.ridePrefsHistory[index],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],
